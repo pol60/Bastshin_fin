@@ -300,7 +300,7 @@ const NavBar: React.FC<{ className?: string }> = ({ className = "" }) => {
                 className="text-yellow-300 hover:text-yellow-400 flex items-center gap-1"
               >
                 <FiPhone className="w-3 h-3" />
-                09307594003
+                0930759403
               </a>
               <button className="px-2 py-1 text-yellow-300 hover:text-yellow-400 transition-colors">
                 Замовити дзвінок
