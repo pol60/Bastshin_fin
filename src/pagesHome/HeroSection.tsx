@@ -175,7 +175,9 @@ export const HeroSection: React.FC<{
 
   const imageUrl = useMemo(() => {
     // Используем функцию getPublicUrl для получения ссылки на фон
-    return getPublicUrl('Fon', import.meta.env.VITE_BACKGROUND_IMAGE_NAME);
+    const url = getPublicUrl('Fon', import.meta.env.VITE_BACKGROUND_IMAGE_NAME);
+    console.log('Background image URL:', url); // Для отладки
+    return url;
   }, []);
 
   useEffect(() => {
