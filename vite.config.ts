@@ -6,7 +6,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 import path from 'path';
 
 export default defineConfig({
-  base: '/Bastshin_fin/',
+  base: '/',
   plugins: [
     react(),
     svgr({
@@ -33,7 +33,7 @@ export default defineConfig({
       manifest: {
         name: 'My App',
         short_name: 'App',
-        start_url: '/Bastshin_fin/',
+        start_url: '/',
         display: 'standalone',
         background_color: '#ffffff',
         icons: [
@@ -42,9 +42,8 @@ export default defineConfig({
         ]
       },
       workbox: {
-        // Отключаем navigation preload, чтобы не было предупреждений
         navigationPreload: false,
-        navigateFallback: '/Bastshin_fin/index.html',
+        navigateFallback: '/index.html',
         navigateFallbackDenylist: [/^\/api\//],
         globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
         runtimeCaching: [
