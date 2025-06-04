@@ -3,7 +3,7 @@ import { supabase } from './supabaseClient';
 const API_URL = import.meta.env.VITE_API_URL;
 
 const getHeaders = async () => {
-  // Получаем актуальную сессию из Supabase
+  // Получаем актуальную сессию из Supabas
   const { data: { session }, error } = await supabase.auth.getSession();
   
   if (error || !session) {
