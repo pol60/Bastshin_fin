@@ -42,12 +42,11 @@ export default defineConfig({
         ]
       },
       workbox: {
-        navigationPreload: true,
+        // Отключаем navigation preload, чтобы не было предупреждений
+        navigationPreload: false,
         navigateFallback: '/Bastshin_fin/index.html',
         navigateFallbackDenylist: [/^\/api\//],
-        globPatterns: [
-          '**/*.{js,css,html,ico,png,svg,json}'
-        ],
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
         runtimeCaching: [
           {
             urlPattern: /\/index\.html$/,
