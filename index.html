@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#1e3fac" />
+  
+  <!-- PWA-метатеги -->
+  <meta name="mobile-web-app-capable" content="yes" />
+  
+  <!-- iOS-метатеги -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon_io/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon_io/favicon-32x32.png" />
+  <link rel="icon" type="image/x-icon" href="/favicon_io/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon_io/android-chrome-192x192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/favicon_io/android-chrome-512x512.png" />
+  
+  <!-- Apple Touch Icon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon_io/apple-touch-icon.png" />
+  
+  <!-- Web App Manifest -->
+  <link rel="manifest" href="/favicon_io/site.webmanifest" />
+  
+  <title>ShinaGo | Інтернет-магазин шин</title>
+</head>
+<body>
+  <div class="cover"></div>
+  <div id="root"></div>
+  <div id="mobile-menu-portal"></div>
+
+  <script>
+    (function() {
+      function handleLoad() {
+        requestAnimationFrame(() => {
+          document.body.classList.add('loaded');
+          window.removeEventListener('load', handleLoad);
+        });
+      }
+      
+      if (document.readyState === 'complete') {
+        handleLoad();
+      } else {
+        window.addEventListener('load', handleLoad);
+      }
+
+      let lastTouchEnd = 0;
+      document.addEventListener('touchend', event => {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) {
+          event.preventDefault();
+        }
+        lastTouchEnd = now;
+      }, false);
+    })();
+  </script>
+  
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>

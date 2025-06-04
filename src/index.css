@@ -1,0 +1,208 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ====================== */
+/* Глобальные стили */
+/* ====================== */
+html {
+  background-color: #fff;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+
+/* ====================== */
+/* Контейнер роутера */
+/* ====================== */
+[data-router] {
+  height: 100%;
+}
+
+/* ====================== */
+/* Прелоадер */
+/* ====================== */
+.cover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: hsl(0, 0%, 100%);
+  z-index: 9999;
+  transition: opacity 0.4s ease;
+}
+
+body.loaded .cover {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.static-container {
+  position: relative;
+  z-index: 10;
+}
+
+
+
+/* ====================== */
+/* Анимации */
+/* ====================== */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(20px);
+    animation-fill-mode: forwards;
+  }
+}
+
+.fadeIn {
+  animation: fadeIn 1s ease-in-out forwards;
+  animation-iteration-count: 1;
+}
+
+.lazy-load-fade-in {
+  animation: fadeIn 1s ease-out forwards;
+}
+
+.opacity-0 {
+  opacity: 0;
+}
+
+/* ====================== */
+/* Tailwind базовые настройки */
+/* ====================== */
+@layer base {
+  :root {
+    --safe-area-bg: #1e3fac; /* базовый цвет для navbar и safe area */
+    --fallback-color: 226 70% 40%;
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --ring: 215 20.2% 65.1%;
+    --radius: 0.5rem;
+  }
+  body {
+    @apply text-foreground antialiased;
+  }
+  button:active {
+    background-color: transparent !important;
+  }
+  input,
+  button,
+  .card {
+    @apply border-border rounded-[--radius];
+  }
+}
+
+/* ====================== */
+/* Компоненты */
+/* ====================== */
+@layer components {
+  .animate-fadeOut {
+    animation: fadeOut 0.5s ease-in-out forwards;
+  }
+}
+
+/* ====================== */
+/* Модальные окна */
+/* ====================== */
+.modal-overlay {
+  @apply fixed inset-0 bg-black/50 z-50;
+}
+
+.modal-content {
+  @apply fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+         bg-background p-6 rounded-xl shadow-xl
+         max-w-[95vw] w-full max-h-[85vh] overflow-auto;
+}
+
+.loading-overlay {
+  @apply fixed inset-0 bg-background z-[9999]
+         flex items-center justify-center
+         animate-fadeOut;
+}
+
+/* ====================== */
+/* Сенсорные устройства */
+/* ====================== */
+@media (pointer: coarse) {
+  .touch-active {
+    @apply bg-primary/80 scale-105;
+  }
+}
+
+/* ====================== */
+/* Базовые настройки */
+/* ====================== */
+html, body {
+  height: 100%;
+}
+
+button {
+  touch-action: manipulation;
+}
+
+/* ====================== */
+/* Навбар */
+/* ====================== */
+.sticky-nav {
+  position: sticky;
+  top: 0;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
+  z-index: 1000;
+  transition: none !important;
+}
+
+/* Чтобы изображения не выходили за пределы контейнера */
+img {
+  @apply max-w-full h-auto;
+}
+
+/* ====================== */
+/* Safe Area (верхняя и нижняя области) */
+/* ====================== */
+/* Данный блок располагается в самом конце, чтобы гарантированно применяться */
+@layer components {
+  body::before,
+  body::after {
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    background-color: var(--safe-area-bg, #1e3fac);
+    z-index: 1001;
+    transition: background-color 0.5s ease-in-out;
+  }
+  body::before {
+    top: 0;
+    height: env(safe-area-inset-top);
+  }
+  body::after {
+    bottom: 0;
+    height: env(safe-area-inset-bottom);
+  }
+}
