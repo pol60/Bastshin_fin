@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, useMemo, useCallback } from "react"
 import { Button } from "../components/ui/button";
 import { Select, SelectItem } from "../components/ui/select";
 import { supabase } from "../lib/supabaseClient";
+import { getPublicUrl } from '../lib/storage';
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
@@ -173,10 +174,8 @@ export const HeroSection: React.FC<{
   }, []);
 
   const imageUrl = useMemo(() => {
-    const { data } = supabase.storage
-      .from("Fon")
-      .getPublicUrl(import.meta.env.VITE_BACKGROUND_IMAGE_NAME);
-    return data.publicUrl;
+    // Используем функцию getPublicUrl для получения ссылки на фон
+    return getPublicUrl('Fon', import.meta.env.VITE_BACKGROUND_IMAGE_NAME);
   }, []);
 
   useEffect(() => {

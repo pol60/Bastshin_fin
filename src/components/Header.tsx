@@ -1,16 +1,27 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingCart, Heart, Phone, User } from 'lucide-react';
 import { useCartStore } from '../stores/cartStore';
+import { getPublicUrl } from '../lib/storage';
 
 export const Header: React.FC = () => {
   const cartCount = useCartStore(state => state.items.length);
+
+  // Получаем ссылку на логотип из Supabase Storage
+  const logoUrl = useMemo(() => {
+    const bucket = import.meta.env.VITE_SUPABASE_BUCKET;
+    const logoFilename = import.meta.env.VITE_SUPABASE_LOGO_FILENAME;
+    return getPublicUrl(bucket, logoFilename);
+  }, []);
 
   return (
     <header className="bg-blue-800 text-white">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-4">
-          <Link to="/" className="text-2xl font-bold">
+          <Link to="/" className="text-2xl font-bold flex items-center gap-2">
+            {logoUrl && (
+              <img src={logoUrl} alt="Логотип" className="h-8 w-auto" style={{maxHeight:32}} />
+            )}
             ShinaGo
           </Link>
           
