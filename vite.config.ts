@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { visualizer } from 'rollup-plugin-visualizer';
 import svgr from 'vite-plugin-svgr';
+import { visualizer } from 'rollup-plugin-visualizer';
 import { VitePWA } from 'vite-plugin-pwa';
 import path from 'path';
 
@@ -10,11 +10,11 @@ export default defineConfig({
   plugins: [
     react(),
     svgr({
+      include: '**/*.svg',
       svgrOptions: {
         plugins: ['@svgr/plugin-svgo', '@svgr/plugin-jsx'],
         icon: true,
       },
-      include: '**/*.svg',
     }),
     visualizer({
       open: true,
@@ -24,13 +24,16 @@ export default defineConfig({
     }),
     VitePWA({
       registerType: 'autoUpdate',
-      injectRegister: 'script', // автоматически вставляет <script src="/sw-register.js">
-      // Удалены skipWaiting и clientsClaim
-      includeAssets: ['favicon.svg', 'robots.txt', 'apple-touch-icon.png', 'index.html'],
+      injectRegister: 'script',
+      includeAssets: [
+        'favicon.svg',
+        'robots.txt',
+        'apple-touch-icon.png'
+      ],
       manifest: {
         name: 'My App',
         short_name: 'App',
-        start_url: '/',
+        start_url: '/Bastshin_fin/',
         display: 'standalone',
         background_color: '#ffffff',
         icons: [
@@ -39,26 +42,24 @@ export default defineConfig({
         ]
       },
       workbox: {
-        // включаем navigation preload
         navigationPreload: true,
-        // fallback на index.html для SPA
         navigateFallback: '/Bastshin_fin/index.html',
         navigateFallbackDenylist: [/^\/api\//],
+        globPatterns: [
+          '**/*.{js,css,html,ico,png,svg,json}'
+        ],
         runtimeCaching: [
           {
-            // кешируем app shell
             urlPattern: /\/index\.html$/,
             handler: 'CacheFirst',
             options: { cacheName: 'html-shell' }
           },
           {
-            // API запросы
             urlPattern: /\/api\//,
             handler: 'NetworkFirst',
             options: { cacheName: 'api-cache' }
           },
           {
-            // статика: изображения
             urlPattern: /\.(?:png|jpg|jpeg|svg|gif)$/,
             handler: 'CacheFirst',
             options: {

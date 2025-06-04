@@ -1,11 +1,18 @@
 // src/lib/supabaseClient.ts
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
-// Если есть тип для вашей БД, импортируйте его, например:
 import type { Database } from '../types/database.types';
 
-export const supabase: SupabaseClient<Database> = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_ANON_KEY,
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  console.error('❌ Supabase: отсутствует VITE_SUPABASE_URL или VITE_SUPABASE_ANON_KEY');
+  throw new Error('Supabase URL или ANON_KEY не заданы в окружении');
+}
+
+export const supabase: SupabaseClient<Database> = createClient<Database>(
+  supabaseUrl,
+  supabaseAnonKey,
   {
     auth: {
       persistSession: true,

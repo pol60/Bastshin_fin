@@ -7,8 +7,8 @@ on:
 
 permissions:
   contents: write   # позволяет Action пушить изменения в репозиторий
-  pages: write      # (рекомендуется) для управления GitHub Pages
-  id-token: write   # не критично, но часто указывается для других action
+  pages: write      # для управления GitHub Pages
+  id-token: write   # обычно указывают для других action
 
 jobs:
   build-and-deploy:
