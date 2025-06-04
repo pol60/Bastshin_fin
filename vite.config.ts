@@ -42,7 +42,7 @@ export default defineConfig({
         // включаем navigation preload
         navigationPreload: true,
         // fallback на index.html для SPA
-        navigateFallback: '/index.html',
+        navigateFallback: '/Bastshin_fin/index.html',
         navigateFallbackDenylist: [/^\/api\//],
         runtimeCaching: [
           {
